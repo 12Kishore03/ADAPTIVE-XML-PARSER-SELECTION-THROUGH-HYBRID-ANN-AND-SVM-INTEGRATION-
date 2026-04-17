@@ -51,6 +51,6 @@ process.on('SIGTERM', () => {
 
 // Give backend time to start
 setTimeout(() => {
-    console.log('✅ Backend should be running on http://localhost:5000');
+    console.log('✅ Backend should be running on https://xml-parser-backend.onrender.com');
     console.log('🌐 Frontend will start on http://localhost:3000');
 }, 2000);
