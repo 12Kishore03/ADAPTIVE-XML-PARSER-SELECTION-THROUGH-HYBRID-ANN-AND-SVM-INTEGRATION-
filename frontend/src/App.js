@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-const BACKEND_URL = "https://xml-parser-backend.onrender.com";
 import './App.css';
+
+const BACKEND_URL = "https://xml-parser-backend.onrender.com";
 
 function App() {
   const [selectedFile, setSelectedFile] = useState(null);
@@ -16,7 +17,7 @@ function App() {
 
   const checkBackendHealth = async () => {
     try {
-      const response = await fetch('${BACKEND_URL}/health');
+      const response = await fetch(`${BACKEND_URL}/health`);
       const health = await response.json();
       
       if (health.models_loaded) {
@@ -28,7 +29,7 @@ function App() {
       }
     } catch (err) {
       setBackendStatus('unreachable');
-      setError('Backend server is unreachable. Please ensure Flask server is running on port 5000.');
+      setError('Backend server is unreachable. Please wait (Render may be waking up)');
     }
   };
 
@@ -77,7 +78,7 @@ function App() {
       formData.append('xml_file', selectedFile);
       formData.append('cpu_cores', cpuCores.toString());
 
-      const response = await fetch('${BACKEND_URL}/predict', {
+      const response = await fetch(`${BACKEND_URL}/predict`, {
         method: 'POST',
         body: formData,
       });
@@ -268,7 +269,6 @@ function App() {
                 ))}
               </div>
 
-              {/* Show ML probabilities if available */}
               {prediction.ml_details && prediction.ml_details.probabilities && (
                 <div className="ml-probabilities">
                   <h4>🤖 ML Probability Distribution:</h4>
@@ -308,7 +308,6 @@ function App() {
           </div>
         )}
 
-        {/* Algorithms Info Section */}
         <div className="algorithms-section">
           <div className="card">
             <h2>📚 Available Parsing Algorithms</h2>
